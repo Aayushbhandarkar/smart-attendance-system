@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Attendance Pro | 6th Sem Computer Engineering</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="attandance.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-user-check me-2"></i>Attendance 
+            </a>
+            <div class="d-flex align-items-center text-white">
+                <span id="currentDateTime" class="me-3"></span>
+                <div class="dropdown">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i>Admin
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mb-5">
+        <div class="institute-header text-center">
+            <h3>Manoharbhai Patel Institute of Engineering and Technology</h3>
+            <h5>Department of Computer Engineering - Semester 6</h5>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="sidebar p-3">
+                    <h5 class="mb-3"><i class="fas fa-book me-2"></i>Subjects</h5>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-primary subject-btn active" data-subject="daa">
+                            <i class="fas fa-laptop-code me-2"></i>DAA
+                        </button>
+                        <button class="btn btn-outline-primary subject-btn" data-subject="hci">
+                            <i class="fas fa-mobile-alt me-2"></i>HCI
+                        </button>
+                        <button class="btn btn-outline-primary subject-btn" data-subject="tcpip">
+                            <i class="fas fa-network-wired me-2"></i>TCP/IP
+                        </button>
+                        <button class="btn btn-outline-primary subject-btn" data-subject="dwm">
+                            <i class="fas fa-database me-2"></i>DWM
+                        </button>
+                        <button class="btn btn-outline-primary subject-btn" data-subject="ee">
+                            <i class="fas fa-bolt me-2"></i>EE
+                        </button>
+                    </div>
+                    
+                    <h5 class="mt-4 mb-3"><i class="fas fa-tasks me-2"></i>Actions</h5>
+                    <div class="d-grid gap-2">
+                        <button id="saveBtn" class="btn btn-success action-btn">
+                            <i class="fas fa-save me-2"></i>Save Attendance
+                        </button>
+                        <button id="exportPdfBtn" class="btn btn-danger action-btn">
+                            <i class="fas fa-file-pdf me-2"></i>Export PDF
+                        </button>
+                        <button id="exportExcelBtn" class="btn btn-success action-btn">
+                            <i class="fas fa-file-excel me-2"></i>Export Excel
+                        </button>
+                        <button id="generateReportBtn" class="btn btn-primary action-btn">
+                            <i class="fas fa-chart-bar me-2"></i>Generate Report
+                        </button>
+                        <button id="bulkActionBtn" class="btn btn-warning action-btn">
+                            <i class="fas fa-users me-2"></i>Bulk Actions
+                        </button>
+                    </div>
+                    
+                    <h5 class="mt-4 mb-3"><i class="fas fa-info-circle me-2"></i>Quick Stats</h5>
+                    <div class="small text-muted">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Total Classes:</span>
+                            <span id="totalClasses">25</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Last Updated:</span>
+                            <span id="lastUpdated">Today, 10:45 AM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-9">
+                <div class="main-content">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="mb-0"><i class="fas fa-calendar-check me-2"></i>Attendance Management</h3>
+                        <div>
+                            <input type="date" class="form-control attendance-date" id="attendanceDate">
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="stats-card bg-success">
+                                <i class="fas fa-user-check"></i>
+                                <div class="count" id="presentCount">0</div>
+                                <div class="label">Present</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stats-card bg-danger">
+                                <i class="fas fa-user-times"></i>
+                                <div class="count" id="absentCount">0</div>
+                                <div class="label">Absent</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stats-card bg-warning">
+                                <i class="fas fa-user-clock"></i>
+                                <div class="count" id="leaveCount">0</div>
+                                <div class="label">On Leave</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="student-search mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" class="form-control" id="studentSearch" placeholder="Search students...">
+                            <button class="btn btn-outline-secondary" type="button" id="clearSearch">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="attendanceTable">
+                            <thead>
+                                <tr>
+                                    <th width="50px">#</th>
+                                    <th>Student Details</th>
+                                    <th width="100px">Status</th>
+                                    <th width="250px">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Students will be added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-3">
+                        <div class="text-muted small">
+                            Showing <span id="showingCount">0</span> of <span id="totalStudents">44</span> students
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary me-2" id="prevPage">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span class="mx-2">Page <span id="currentPage">1</span></span>
+                            <button class="btn btn-sm btn-outline-secondary" id="nextPage">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div class="modal fade" id="reportModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="fas fa-chart-bar me-2"></i>Attendance Report</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6>Subject: <span id="reportSubject" class="fw-bold">DAA</span></h6>
+                            <h6>Date: <span id="reportDate" class="fw-bold">May 15, 2023</span></h6>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <h6>Total Students: <span class="fw-bold">44</span></h6>
+                            <h6>Attendance: <span class="fw-bold">85%</span></h6>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <canvas id="attendanceChart" height="200"></canvas>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Count</th>
+                                    <th>Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge bg-success">Present</span></td>
+                                    <td>32</td>
+                                    <td>72.7%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-danger">Absent</span></td>
+                                    <td>8</td>
+                                    <td>18.2%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-warning">Leave</span></td>
+                                    <td>4</td>
+                                    <td>9.1%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary"><i class="fas fa-download me-2"></i>Download Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Action Modal -->
+    <div class="modal fade" id="bulkActionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-white">
+                    <h5 class="modal-title"><i class="fas fa-users me-2"></i>Bulk Actions</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Select Action</label>
+                        <select class="form-select" id="bulkActionSelect">
+                            <option value="present">Mark all as Present</option>
+                            <option value="absent">Mark all as Absent</option>
+                            <option value="leave">Mark all as Leave</option>
+                            <option value="toggle">Toggle Present/Absent</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Apply to</label>
+                        <select class="form-select" id="bulkApplyTo">
+                            <option value="all">All Students</option>
+                            <option value="selected">Selected Students Only</option>
+                            <option value="absent">Currently Absent Students</option>
+                            <option value="present">Currently Present Students</option>
+                        </select>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>This action will affect <span id="affectedStudentsCount">44</span> students.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-warning" id="applyBulkAction"><i class="fas fa-check me-2"></i>Apply Action</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="attandance.js"></script>
+</body>
+</html>

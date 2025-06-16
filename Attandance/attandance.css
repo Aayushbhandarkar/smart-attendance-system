@@ -1,0 +1,174 @@
+
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --success-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+    --light-color: #ecf0f1;
+    --dark-color: #34495e;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.sidebar {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: calc(100vh - 100px);
+    position: sticky;
+    top: 20px;
+    overflow-y: auto;
+}
+
+.main-content {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+}
+
+.subject-btn {
+    transition: all 0.3s ease;
+    text-align: left;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.subject-btn:hover {
+    transform: translateX(5px);
+}
+
+.subject-btn.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.stats-card {
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+    text-align: center;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stats-card i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.stats-card .count {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.stats-card .label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.status-btn {
+    min-width: 80px;
+    font-weight: 500;
+    margin: 2px;
+}
+
+.present-btn {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.absent-btn {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.leave-btn {
+    background-color: var(--warning-color);
+    border-color: var(--warning-color);
+}
+
+.student-search {
+    margin-bottom: 20px;
+}
+
+.attendance-date {
+    max-width: 200px;
+}
+
+.action-btn {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.student-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    border: 2px solid #ddd;
+}
+
+.student-name {
+    font-weight: 500;
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.badge-present {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.badge-absent {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.badge-leave {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        height: auto;
+        margin-bottom: 20px;
+    }
+}
+
+.institute-header {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
